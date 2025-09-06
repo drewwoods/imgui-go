@@ -2,7 +2,7 @@
 
 This library is a continuation of the [Go](https://www.golang.org) wrapper for **[Dear ImGui](https://github.com/ocornut/imgui)** originally created at https://github.com/inkyblackness/imgui-go.
 
-This fork exposes additional functionality in ImGui that I found useful, building upon the excellent foundation of the original project.
+This fork has been updated to Dear ImGui v1.90.9 with **docking support** and exposes additional functionality, building upon the excellent foundation of the original project.
 
 This wrapper started as a special-purpose wrapper for use within InkyBlackness.
 However, it is self-contained and can be used for other purposes as well.
@@ -41,7 +41,26 @@ This library does not mirror the versions of the wrapped **Dear ImGui**. The sem
 * Minor changes: Extensions in API. Typically done through small version increments of **Dear ImGui** and/or exposing further features in a compatible way.
 * Patch changes: Bug fixes - either in the wrapper or the wrapped **Dear ImGui**, given that the API & behaviour remains the same.
 
-At the moment, this library uses version [1.85](https://github.com/ocornut/imgui/releases/tag/v1.85) of **Dear ImGui**.
+At the moment, this library uses version [1.90.9](https://github.com/ocornut/imgui/releases/tag/v1.90.9) of **Dear ImGui** with **docking support** enabled.
+
+## Breaking Changes from v1.85
+
+This major version update from Dear ImGui v1.85 to v1.90.9 includes some breaking changes:
+* **KeyMap deprecation**: `io.KeyMap[]` and `io.KeysDown[]` are deprecated since v1.87 in favor of `io.AddKeyEvent()`. The legacy KeyMap system still works but will be removed when `IMGUI_DISABLE_OBSOLETE_KEYIO` is defined. 
+  - Old: `ImGui::IsKeyPressed(ImGui::GetIO().KeyMap[ImGuiKey_Space])` 
+  - New: `ImGui::IsKeyPressed(ImGuiKey_Space)`
+* Some function signatures may have changed
+* Window flag bit positions have been corrected to match ImGui v1.90.9  
+* Applications using docking features will need to enable docking in their ImGui configuration
+* New features and improvements may affect existing behavior
+
+For detailed migration information, see [Dear ImGui issue #4921](https://github.com/ocornut/imgui/issues/4921) and the [Dear ImGui changelog](https://github.com/ocornut/imgui/releases). Please test your applications thoroughly when upgrading.
+
+## Acknowledgments
+
+* [ocornut/imgui](https://github.com/ocornut/imgui) - The original Dear ImGui library that makes all of this possible
+* [inkyblackness/imgui-go](https://github.com/inkyblackness/imgui-go) - The original excellent Go wrapper that this project builds upon
+* [JetSetIlly/imgui-go](https://github.com/JetSetIlly/imgui-go/blob/master/IO.go) for the key identifiers implementation, which was used as a reference for updating the keyboard input system in this version.
 
 ## Examples
 A separate repository was created to host ported examples and reference implementations.
@@ -50,6 +69,22 @@ See repository [inkyblackness/imgui-go-examples](https://github.com/inkyblacknes
 It contains reference implementations for libraries such as [GLFW3](https://github.com/go-gl/glfw) and [SDL2](https://github.com/veandco/go-sdl2), using [OpenGL](https://github.com/go-gl/gl).
 
 The screenshot above was created with such an example.
+
+## Docking Support
+
+This version includes full **docking support**, allowing you to create professional IDE-like interfaces with:
+* **DockSpace**: Create dockable areas within your application windows  
+* **Tabbed windows**: Multiple windows that start docked as tabs but can be undocked
+* **Flexible layouts**: Users can drag and rearrange window layouts at runtime
+* **Persistent layouts**: Docking configurations are saved automatically
+
+### Key Docking Functions
+* `DockSpace(id, size, flags)` - Create a dockspace within an existing window
+* `DockSpaceOverViewport(id, viewport, flags)` - Create a full-screen dockspace
+* `SetNextWindowDockID(dockID, cond)` - Dock a window to a specific dock node
+* `WindowFlagsNoDocking` - Prevent specific windows from being docked
+
+See the `examples/` directory for usage examples and detailed documentation.
 
 ## Extras
 
