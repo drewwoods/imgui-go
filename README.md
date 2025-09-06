@@ -56,12 +56,6 @@ This major version update from Dear ImGui v1.85 to v1.90.9 includes some breakin
 
 For detailed migration information, see [Dear ImGui issue #4921](https://github.com/ocornut/imgui/issues/4921) and the [Dear ImGui changelog](https://github.com/ocornut/imgui/releases). Please test your applications thoroughly when upgrading.
 
-## Acknowledgments
-
-* [ocornut/imgui](https://github.com/ocornut/imgui) - The original Dear ImGui library that makes all of this possible
-* [inkyblackness/imgui-go](https://github.com/inkyblackness/imgui-go) - The original excellent Go wrapper that this project builds upon
-* [JetSetIlly/imgui-go](https://github.com/JetSetIlly/imgui-go/blob/master/IO.go) for the key identifiers implementation, which was used as a reference for updating the keyboard input system in this version.
-
 ## Examples
 A separate repository was created to host ported examples and reference implementations.
 See repository [inkyblackness/imgui-go-examples](https://github.com/inkyblackness/imgui-go-examples).
@@ -120,8 +114,14 @@ Before inkyblackness/imgui-go was created, the following alternatives were consi
   * Adding this adds another dependency
   * Note: `cimgui` has since switched to an auto-generated method. You can use that instead of this manually curated wrapper here.
 
-
 ## License
 
 The project is available under the terms of the **New BSD License** (see LICENSE file).
 The licenses of included sources are stored in the **_licenses** folder.
+
+## Acknowledgments
+
+* [ocornut/imgui](https://github.com/ocornut/imgui) - The original Dear ImGui library that makes all of this possible
+* [inkyblackness/imgui-go](https://github.com/inkyblackness/imgui-go) - The original excellent Go wrapper that this project builds upon
+* [JetSetIlly/imgui-go](https://github.com/JetSetIlly/imgui-go/blob/master/IO.go) for the key identifiers implementation, which was used as a reference for updating the keyboard input system in this version.
+
