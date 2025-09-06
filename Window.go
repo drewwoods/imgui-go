@@ -2,6 +2,7 @@ package imgui
 
 // #include "wrapper/Window.h"
 import "C"
+import "unsafe"
 
 // ShowDemoWindow creates a demo/test window. Demonstrates most ImGui features.
 // Call this to learn about the library! Try to make it always available in your application!
@@ -386,6 +387,14 @@ func (viewport Viewport) handle() C.IggViewport {
 	return C.IggViewport(viewport)
 }
 
+// ID returns the unique identifier for the viewport.
+func (viewport Viewport) ID() uint32 {
+	if viewport == 0 {
+		return 0
+	}
+	return uint32(C.iggViewportGetID(viewport.handle()))
+}
+
 // Flags returns viewports flags value.
 func (viewport Viewport) Flags() ViewportFlags {
 	if viewport == 0 {
@@ -494,11 +503,18 @@ const (
 	DockNodeFlagsNoUndocking DockNodeFlags = 1 << 7
 )
 
-// DockSpace creates a dockspace node within an existing window. All child windows must be created after calling DockSpace().
-// Returns the ID of the dock node.
-func DockSpace(id uint32, size Vec2, flags DockNodeFlags) uint32 {
+// DockSpace creates a dockspace node within an existing window with sane defaults.
+// All child windows must be created after calling DockSpace(). Returns the ID of the dock node.
+func DockSpace(id uint32) uint32 {
+	return DockSpaceV(id, Vec2{0,0}, DockNodeFlagsNone, nil)
+}
+
+// DockSpaceV creates a dockspace node within an existing window with extended options.
+// All child windows must be created after calling DockSpace(). Returns the ID of the dock node.
+// Pass nil for windowClass for default behavior.
+func DockSpaceV(id uint32, size Vec2, flags DockNodeFlags, windowClass unsafe.Pointer) uint32 {
 	sizeArg, _ := size.wrapped()
-	return uint32(C.iggDockSpace(C.uint(id), sizeArg, C.int(flags)))
+	return uint32(C.iggDockSpace(C.uint(id), sizeArg, C.int(flags), windowClass))
 }
 
 // DockSpaceOverViewport creates a dockspace over the entire viewport or the specified viewport.
@@ -511,4 +527,17 @@ func DockSpaceOverViewport(id uint32, viewport Viewport, flags DockNodeFlags) ui
 // Use this before calling Begin() to dock a window to a specific dock node.
 func SetNextWindowDockID(dockID uint32, cond Condition) {
 	C.iggSetNextWindowDockID(C.uint(dockID), C.int(cond))
+}
+
+// SetNextWindowViewport sets the viewport that the next window will be displayed on.
+func SetNextWindowViewport(viewportID uint32) {
+	C.iggSetNextWindowViewport(C.uint(viewportID))
+}
+
+// GetID returns a unique ID for the given string identifier.
+// IDs are unique within the scope of the current window.
+func GetID(strID string) uint32 {
+	strIDArg, strIDFin := wrapString(strID)
+	defer strIDFin()
+	return uint32(C.iggGetID(strIDArg))
 }

@@ -36,3 +36,4 @@
 #include "wrapper/Window.cpp"
 #include "wrapper/WrapperConverter.cpp"
 #include "wrapper/Settings.cpp"
+#include "wrapper/DockBuilder.cpp"

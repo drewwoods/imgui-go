@@ -45,6 +45,7 @@ extern void iggPushButtonRepeat(IggBool repeat);
 extern void iggPopButtonRepeat(void);
 
 extern IggViewport iggGetMainViewport();
+extern unsigned int iggViewportGetID(IggViewport handle);
 extern int iggViewportGetFlags(IggViewport handle);
 extern void iggViewportGetPos(IggViewport handle, IggVec2 *out);
 extern void iggViewportGetSize(IggViewport handle, IggVec2 *out);
@@ -53,9 +54,11 @@ extern void iggViewportGetWorkSize(IggViewport handle, IggVec2 *out);
 extern void iggViewportGetCenter(IggViewport handle, IggVec2 *out);
 extern void iggViewportGetWorkCenter(IggViewport handle, IggVec2 *out);
 
-extern unsigned int iggDockSpace(unsigned int dockspace_id, IggVec2 const *size, int flags);
+extern unsigned int iggDockSpace(unsigned int dockspace_id, IggVec2 const *size, int flags, const void* window_class);
 extern unsigned int iggDockSpaceOverViewport(unsigned int dockspace_id, IggViewport viewport, int flags);
 extern void iggSetNextWindowDockID(unsigned int dock_id, int cond);
+extern void iggSetNextWindowViewport(unsigned int viewport_id);
+extern unsigned int iggGetID(const char* str_id);
 
 #ifdef __cplusplus
 }
