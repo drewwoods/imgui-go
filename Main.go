@@ -18,6 +18,11 @@ func NewFrame() {
 	C.iggNewFrame()
 }
 
+// GetFrameCount returns the number of imgui frames since the start of the application.
+func GetFrameCount() int {
+	return int(C.iggGetFrameCount())
+}
+
 // Render ends the ImGui frame, finalize the draw data.
 // After this method, call RenderedDrawData to retrieve the draw commands and execute them.
 func Render() {

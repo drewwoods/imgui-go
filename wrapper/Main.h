@@ -10,6 +10,7 @@ extern char const *iggGetVersion(void);
 extern double iggGetTime(void);
 
 extern void iggNewFrame(void);
+extern int iggGetFrameCount();
 extern void iggRender(void);
 extern void iggEndFrame(void);
 

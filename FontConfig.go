@@ -97,6 +97,31 @@ func (config FontConfig) SetGlyphOffsetY(value float32) {
 	}
 }
 
+// SetRasterizerMultiply sets the rasterizer multiply to increase the contrast.
+// Brighten (>1.0f) or darken (<1.0f) font output. Brightening small fonts may
+// be a good workaround to make them more readable.
+func (config FontConfig) SetRasterizerMultiply(value float32) {
+	if config != DefaultFontConfig {
+		C.iggFontConfigSetRasterizerMultiply(config.handle(), C.float(value))
+	}
+}
+
+// SetGlyphExtraSpacingX sets the extra spacing to add between characters.
+// Extra spacing (in pixels) between glyphs. Only X axis is supported for now.
+func (config FontConfig) SetGlyphExtraSpacingX(value float32) {
+	if config != DefaultFontConfig {
+		C.iggFontConfigSetGlyphExtraSpacingX(config.handle(), C.float(value))
+	}
+}
+
+// SetGlyphExtraSpacingY sets the extra spacing to add between characters.
+// Extra spacing (in pixels) between glyphs. Only X axis is supported for now.
+func (config FontConfig) SetGlyphExtraSpacingY(value float32) {
+	if config != DefaultFontConfig {
+		C.iggFontConfigSetGlyphExtraSpacingY(config.handle(), C.float(value))
+	}
+}
+
 // SetMergeMode merges the new fonts into the previous font if enabled. This way
 // you can combine multiple input fonts into one (e.g. ASCII font + icons +
 // Japanese glyphs). You may want to use GlyphOffset.y when merge font of

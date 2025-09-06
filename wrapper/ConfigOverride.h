@@ -12,4 +12,5 @@ extern "C" void iggAssert(char const *expression, char const *file, int line);
       }                                         \
    } while (false)
 
-#define IMGUI_DISABLE_OBSOLETE_FUNCTIONS
+//#define IMGUI_DISABLE_OBSOLETE_FUNCTIONS
+#define IMGUI_DEFINE_MATH_OPERATORS

@@ -42,8 +42,8 @@ static void importValue(ImGuiListClipper &out, IggListClipper const &in)
    out.DisplayEnd = in.DisplayEnd;
    out.ItemsCount = in.ItemsCount;
 
-   out.StepNo = in.StepNo;
-   out.ItemsFrozen = in.ItemsFrozen;
+   // StepNo and ItemsFrozen were moved to internal ImGuiListClipperData structure
+   // These fields are now internal and not directly accessible on ImGuiListClipper
    out.ItemsHeight = in.ItemsHeight;
    out.StartPosY = in.StartPosY;
 }
@@ -54,8 +54,10 @@ static void exportValue(IggListClipper &out, ImGuiListClipper const &in)
    out.DisplayEnd = in.DisplayEnd;
    out.ItemsCount = in.ItemsCount;
 
-   out.StepNo = in.StepNo;
-   out.ItemsFrozen = in.ItemsFrozen;
+   // StepNo and ItemsFrozen were moved to internal ImGuiListClipperData structure
+   // These fields are now internal and not directly accessible
+   out.StepNo = 0;
+   out.ItemsFrozen = 0;
    out.ItemsHeight = in.ItemsHeight;
    out.StartPosY = in.StartPosY;
 }

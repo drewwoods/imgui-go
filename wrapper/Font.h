@@ -12,6 +12,7 @@ extern void iggCalcTextSize(const char *text, int length, IggBool hide_text_afte
 extern float iggGetFontSize();
 extern float iggFontFontSize(IggFont handle);
 extern IggFontGlyph iggFindGlyph(IggFont font, int ch);
+const char * iggFontName(IggFont handle);
 extern int iggFontGlyphColored(IggFontGlyph glyph);
 extern int iggFontGlyphVisible(IggFontGlyph glyph);
 extern int iggFontGlyphCodepoint(IggFontGlyph glyph);

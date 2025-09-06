@@ -76,6 +76,12 @@ void iggFontConfigSetName(IggFontConfig handle, char const *value)
    fontConfig->Name[bufSize - 1] = '\0';
 }
 
+const char *iggFontConfigGetName(IggFontConfig handle)
+{
+   ImFontConfig *fontConfig = reinterpret_cast<ImFontConfig *>(handle);
+   return fontConfig->Name;
+}
+
 int iggFontConfigGetFontDataOwnedByAtlas(IggFontConfig handle)
 {
    ImFontConfig *fontConfig = reinterpret_cast<ImFontConfig *>(handle);
@@ -92,4 +98,22 @@ void iggFontConfigSetFontBuilderFlags(IggFontConfig handle, unsigned int flags)
 {
    ImFontConfig *fontConfig = reinterpret_cast<ImFontConfig *>(handle);
    fontConfig->FontBuilderFlags = flags;
+}
+
+void iggFontConfigSetRasterizerMultiply(IggFontConfig handle, float value)
+{
+   ImFontConfig *fontConfig = reinterpret_cast<ImFontConfig *>(handle);
+   fontConfig->RasterizerMultiply = value;
+}
+
+void iggFontConfigSetGlyphExtraSpacingX(IggFontConfig handle, float value)
+{
+   ImFontConfig *fontConfig = reinterpret_cast<ImFontConfig *>(handle);
+   fontConfig->GlyphExtraSpacing.x = value;
+}
+
+void iggFontConfigSetGlyphExtraSpacingY(IggFontConfig handle, float value)
+{
+   ImFontConfig *fontConfig = reinterpret_cast<ImFontConfig *>(handle);
+   fontConfig->GlyphExtraSpacing.y = value;
 }

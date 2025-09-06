@@ -85,22 +85,22 @@ IggBool iggIsWindowHovered(int flags)
 
 int iggGetKeyIndex(int key)
 {
-    return ImGui::GetKeyIndex(key);
+    return ImGui::GetKeyIndex((ImGuiKey)key);
 }
 
 IggBool iggIsKeyDown(int key)
 {
-   return ImGui::IsKeyDown(key);
+   return ImGui::IsKeyDown((ImGuiKey)key);
 }
 
 IggBool iggIsKeyPressed(int key, IggBool repeat)
 {
-   return ImGui::IsKeyPressed(key, repeat);
+   return ImGui::IsKeyPressed((ImGuiKey)key, (bool)repeat);
 }
 
 IggBool iggIsKeyReleased(int key)
 {
-   return ImGui::IsKeyReleased(key);
+   return ImGui::IsKeyReleased((ImGuiKey)key);
 }
 
 IggBool iggIsMouseDown(int button)
@@ -115,7 +115,7 @@ IggBool iggIsAnyMouseDown()
 
 IggBool iggIsMouseClicked(int button, IggBool repeat)
 {
-   return ImGui::IsMouseClicked(button, repeat);
+   return ImGui::IsMouseClicked(button, (bool)repeat);
 }
 
 IggBool iggIsMouseReleased(int button)

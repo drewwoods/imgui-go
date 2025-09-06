@@ -23,6 +23,11 @@ void iggSeparator(void)
    ImGui::Separator();
 }
 
+void iggSeparatorText(char const *label)
+{
+   ImGui::SeparatorText(label);
+}
+
 void iggSameLine(float posX, float spacingW)
 {
    ImGui::SameLine(posX, spacingW);

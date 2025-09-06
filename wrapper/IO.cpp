@@ -66,8 +66,9 @@ extern int iggMetricsActiveWindows(IggIO handle)
 
 extern int iggMetricsActiveAllocations(IggIO handle)
 {
-   ImGuiIO *io = reinterpret_cast<ImGuiIO *>(handle);
-   return io->MetricsActiveAllocations;
+   // MetricsActiveAllocations was removed in ImGui 1.90.0
+   // Return 0 as this field is unlikely to be used by end-users
+   return 0;
 }
 
 extern void iggMouseDelta(IggIO handle, IggVec2 *value)
@@ -142,6 +143,12 @@ void iggIoSetFontGlobalScale(IggIO handle, float value)
 {
    ImGuiIO *io = reinterpret_cast<ImGuiIO *>(handle);
    io->FontGlobalScale = value;
+}
+
+void iggIoAddKeyEvent(IggIO handle, int key, IggBool down)
+{
+   ImGuiIO &io = *reinterpret_cast<ImGuiIO *>(handle);
+   io.AddKeyEvent((ImGuiKey)key, down == 1);
 }
 
 void iggIoKeyPress(IggIO handle, int key)

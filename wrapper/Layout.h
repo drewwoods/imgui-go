@@ -11,6 +11,7 @@ extern void iggPushIDInt(int id);
 extern void iggPopID(void);
 
 extern void iggSeparator(void);
+extern void iggSeparatorText(char const *label);
 extern void iggSameLine(float posX, float spacingW);
 extern void iggSpacing(void);
 extern void iggDummy(IggVec2 const *size);

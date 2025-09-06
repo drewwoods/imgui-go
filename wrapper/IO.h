@@ -33,6 +33,7 @@ extern void iggIoSetDeltaTime(IggIO handle, float value);
 extern void iggIoSetFontGlobalScale(IggIO handle, float value);
 
 extern void iggIoKeyPress(IggIO handle, int key);
+extern void iggIoAddKeyEvent(IggIO handle, int key, IggBool down);
 extern void iggIoKeyRelease(IggIO handle, int key);
 extern void iggIoKeyMap(IggIO handle, int imguiKey, int nativeKey);
 extern void iggIoKeyCtrl(IggIO handle, int leftCtrl, int rightCtrl);

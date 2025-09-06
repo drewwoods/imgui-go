@@ -19,6 +19,10 @@ extern void iggFontConfigSetGlyphOffsetX(IggFontConfig handle, float value);
 extern void iggFontConfigSetGlyphOffsetY(IggFontConfig handle, float value);
 extern void iggFontConfigSetMergeMode(IggFontConfig handle, IggBool value);
 extern void iggFontConfigSetName(IggFontConfig handle, char const *value);
+extern const char *iggFontConfigGetName(IggFontConfig handle);
+extern void iggFontConfigSetRasterizerMultiply(IggFontConfig handle, float value);
+extern void iggFontConfigSetGlyphExtraSpacingX(IggFontConfig handle, float value);
+extern void iggFontConfigSetGlyphExtraSpacingY(IggFontConfig handle, float value);
 extern int iggFontConfigGetFontDataOwnedByAtlas(IggFontConfig handle);
 
 extern unsigned int iggFontConfigGetFontBuilderFlags(IggFontConfig handle);

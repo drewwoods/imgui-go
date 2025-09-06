@@ -29,6 +29,19 @@ func wrapBool(goValue *bool) (wrapped *C.IggBool, finisher func()) {
 	return
 }
 
+func wrapInt[T ~int | ~int32 | ~int64](goValue *T) (wrapped *C.int, finisher func()) {
+	if goValue != nil {
+		cValue := C.int(*goValue)
+		wrapped = &cValue
+		finisher = func() {
+			*goValue = T(cValue)
+		}
+	} else {
+		finisher = func() {}
+	}
+	return
+}
+
 func wrapInt32(goValue *int32) (wrapped *C.int, finisher func()) {
 	if goValue != nil {
 		cValue := C.int(*goValue)
@@ -42,12 +55,12 @@ func wrapInt32(goValue *int32) (wrapped *C.int, finisher func()) {
 	return
 }
 
-func wrapFloat(goValue *float32) (wrapped *C.float, finisher func()) {
+func wrapFloat[F ~float32 | ~float64](goValue *F) (wrapped *C.float, finisher func()) {
 	if goValue != nil {
 		cValue := C.float(*goValue)
 		wrapped = &cValue
 		finisher = func() {
-			*goValue = float32(cValue)
+			*goValue = F(cValue)
 		}
 	} else {
 		finisher = func() {}

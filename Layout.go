@@ -25,6 +25,13 @@ func Separator() {
 	C.iggSeparator()
 }
 
+// Separator Text work like Separator, but also adds a label in the separator.
+func SeparatorText(label string) {
+	labelArg, labelFin := wrapString(label)
+	defer labelFin()
+	C.iggSeparatorText(labelArg)
+}
+
 // SameLineV is between widgets or groups to layout them horizontally.
 func SameLineV(posX float32, spacingW float32) {
 	C.iggSameLine(C.float(posX), C.float(spacingW))
@@ -77,7 +84,6 @@ func EndGroup() {
 	C.iggEndGroup()
 }
 
-/*
 // Disabled API is beta as v1.84; they can change in such a way that require a
 // major version. So, it's better to leave them out until out of beta.
 
@@ -95,7 +101,6 @@ func BeginDisabledV(disabled bool) {
 func EndDisabled() {
 	C.iggEndDisabled()
 }
-*/
 
 // CursorPos returns the cursor position in window coordinates (relative to window position).
 func CursorPos() Vec2 {

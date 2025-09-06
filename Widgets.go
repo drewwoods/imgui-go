@@ -132,12 +132,11 @@ func RadioButton(id string, active bool) bool {
 // The radio button will be set if v == button. Useful for groups of radio
 // buttons. In the example below, "radio b" will be selected.
 //
-//		v := 1
-//		imgui.RadioButtonInt("radio a", &v, 0)
-//		imgui.RadioButtonInt("radio b", &v, 1)
-//		imgui.RadioButtonInt("radio c", &v, 2)
-//
-func RadioButtonInt(id string, v *int, button int) bool {
+//	v := 1
+//	imgui.RadioButtonInt("radio a", &v, 0)
+//	imgui.RadioButtonInt("radio b", &v, 1)
+//	imgui.RadioButtonInt("radio c", &v, 2)
+func RadioButtonInt[T ~int | ~int32 | ~int64](id string, v *T, button T) bool {
 	idArg, idFin := wrapString(id)
 	defer idFin()
 	ok := C.iggRadioButton(idArg, castBool(button == *v)) != 0
@@ -328,10 +327,10 @@ func DragFloatRange2(label string, currentMin *float32, currentMax *float32) boo
 }
 
 // DragIntV creates a draggable slider for integers.
-func DragIntV(label string, value *int32, speed float32, min, max int32, format string, flags SliderFlags) bool {
+func DragIntV[T int | int32 | int64](label string, value *T, speed float32, min, max T, format string, flags SliderFlags) bool {
 	labelArg, labelFin := wrapString(label)
 	defer labelFin()
-	valueArg, valueFin := wrapInt32(value)
+	valueArg, valueFin := wrapInt(value)
 	defer valueFin()
 	formatArg, formatFin := wrapString(format)
 	defer formatFin()
@@ -339,7 +338,7 @@ func DragIntV(label string, value *int32, speed float32, min, max int32, format 
 }
 
 // DragInt calls DragIntV(label, value, 1.0, 0, 0, "%d", SliderFlagsNone).
-func DragInt(label string, value *int32) bool {
+func DragInt[T int | int32 | int64](label string, value *T) bool {
 	return DragIntV(label, value, 1.0, 0, 0, "%d", SliderFlagsNone)
 }
 
@@ -409,7 +408,7 @@ func DragIntRange2(label string, currentMin *int32, currentMax *int32) bool {
 }
 
 // SliderFloatV creates a slider for floats.
-func SliderFloatV(label string, value *float32, min, max float32, format string, flags SliderFlags) bool {
+func SliderFloatV[F ~float32 | ~float64](label string, value *F, min, max F, format string, flags SliderFlags) bool {
 	labelArg, labelFin := wrapString(label)
 	defer labelFin()
 	valueArg, valueFin := wrapFloat(value)
@@ -420,7 +419,7 @@ func SliderFloatV(label string, value *float32, min, max float32, format string,
 }
 
 // SliderFloat calls SliderIntV(label, value, min, max, "%.3f", SliderFlagsNone).
-func SliderFloat(label string, value *float32, min, max float32) bool {
+func SliderFloat[F ~float32 | ~float64](label string, value *F, min, max F) bool {
 	return SliderFloatV(label, value, min, max, "%.3f", SliderFlagsNone)
 }
 
@@ -470,10 +469,10 @@ func SliderFloat4(label string, values *[4]float32, min, max float32) bool {
 }
 
 // SliderIntV creates a slider for integers.
-func SliderIntV(label string, value *int32, min, max int32, format string, flags SliderFlags) bool {
+func SliderIntV[I ~int | ~int32 | ~int64](label string, value *I, min, max I, format string, flags SliderFlags) bool {
 	labelArg, labelFin := wrapString(label)
 	defer labelFin()
-	valueArg, valueFin := wrapInt32(value)
+	valueArg, valueFin := wrapInt(value)
 	defer valueFin()
 	formatArg, formatFin := wrapString(format)
 	defer formatFin()
@@ -481,7 +480,7 @@ func SliderIntV(label string, value *int32, min, max int32, format string, flags
 }
 
 // SliderInt calls SliderIntV(label, value, min, max, "%d", SliderFlagsNone).
-func SliderInt(label string, value *int32, min, max int32) bool {
+func SliderInt[I ~int | ~int32 | ~int64](label string, value *I, min, max I) bool {
 	return SliderIntV(label, value, min, max, "%d", SliderFlagsNone)
 }
 

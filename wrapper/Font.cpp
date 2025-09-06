@@ -23,6 +23,12 @@ void iggCalcTextSize(const char *text, int length, IggBool hide_text_after_doubl
    exportValue(*value, ImGui::CalcTextSize(text, text + length, hide_text_after_double_hash, wrap_width));
 }
 
+const char * iggFontName(IggFont handle)
+{
+   ImFont *font = reinterpret_cast<ImFont *>(handle);
+   return font->GetDebugName();
+}
+
 float iggFontFontSize(IggFont handle)
 {
    ImFont *font = reinterpret_cast<ImFont *>(handle);

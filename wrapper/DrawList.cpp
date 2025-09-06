@@ -2,6 +2,7 @@
 
 #include "DrawList.h"
 #include "WrapperConverter.h"
+#include <cstddef>
 
 int iggDrawListGetCommandCount(IggDrawList handle)
 {
@@ -37,9 +38,9 @@ void iggGetIndexBufferLayout(size_t *entrySize)
 void iggGetVertexBufferLayout(size_t *entrySize, size_t *posOffset, size_t *uvOffset, size_t *colOffset)
 {
    *entrySize = sizeof(ImDrawVert);
-   *posOffset = IM_OFFSETOF(ImDrawVert, pos);
-   *uvOffset = IM_OFFSETOF(ImDrawVert, uv);
-   *colOffset = IM_OFFSETOF(ImDrawVert, col);
+   *posOffset = offsetof(ImDrawVert, pos);
+   *uvOffset = offsetof(ImDrawVert, uv);
+   *colOffset = offsetof(ImDrawVert, col);
 }
 
 void iggAddLine(IggDrawList handle, IggVec2 const *p1, IggVec2 const *p2, IggPackedColor col, float thickness)

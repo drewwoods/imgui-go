@@ -47,6 +47,11 @@ func (font Font) handle() C.IggFont {
 	return C.IggFont(font)
 }
 
+// FontName returns the name of the font.
+func (font Font) FontName() string {
+	return C.GoString(C.iggFontName(font.handle()))
+}
+
 // FontSize returns the height of the given font.
 func (font Font) FontSize() float32 {
 	return float32(C.iggFontFontSize(font.handle()))

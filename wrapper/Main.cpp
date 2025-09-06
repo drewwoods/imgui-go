@@ -12,6 +12,11 @@ double iggGetTime()
    return ImGui::GetTime();
 }
 
+int iggGetFrameCount()
+{
+   return ImGui::GetFrameCount();
+}
+
 void iggNewFrame()
 {
    ImGui::NewFrame();

@@ -539,7 +539,7 @@ IggDir iggStyleGetWindowMenuButtonPosition(IggGuiStyle handle)
 void iggStyleSetWindowMenuButtonPosition(IggGuiStyle handle, IggDir value)
 {
    ImGuiStyle *style = reinterpret_cast<ImGuiStyle *>(handle);
-   style->WindowMenuButtonPosition = value;
+   style->WindowMenuButtonPosition = (ImGuiDir)value;
 }
 
 IggDir iggStyleGetColorButtonPosition(IggGuiStyle handle)
@@ -551,5 +551,5 @@ IggDir iggStyleGetColorButtonPosition(IggGuiStyle handle)
 void iggStyleSetColorButtonPosition(IggGuiStyle handle, IggDir value)
 {
    ImGuiStyle *style = reinterpret_cast<ImGuiStyle *>(handle);
-   style->ColorButtonPosition = value;
+   style->ColorButtonPosition = (ImGuiDir)value;
 }

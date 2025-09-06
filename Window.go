@@ -62,15 +62,17 @@ const (
 	// WindowFlagsAlwaysUseWindowPadding ensures child windows without border uses style.WindowPadding (ignored by
 	// default for non-bordered child windows, because more convenient).
 	WindowFlagsAlwaysUseWindowPadding WindowFlags = 1 << 16
-	// WindowFlagsNoNavInputs has no gamepad/keyboard navigation within the window.
-	WindowFlagsNoNavInputs WindowFlags = 1 << 18
 	// WindowFlagsNoNavFocus has no focusing toward this window with gamepad/keyboard navigation
 	// (e.g. skipped by CTRL+TAB).
-	WindowFlagsNoNavFocus WindowFlags = 1 << 19
+	WindowFlagsNoNavFocus WindowFlags = 1 << 17
+	// WindowFlagsNoNavInputs has no gamepad/keyboard navigation within the window.
+	WindowFlagsNoNavInputs WindowFlags = 1 << 18
 	// WindowFlagsUnsavedDocument appends '*' to title without affecting the ID, as a convenience to avoid using the
 	// ### operator. When used in a tab/docking context, tab is selected on closure and closure is deferred by one
 	// frame to allow code to cancel the closure (with a confirmation popup, etc.) without flicker.
 	WindowFlagsUnsavedDocument WindowFlags = 1 << 20
+	// WindowFlagsNoDocking disables docking of this window.
+	WindowFlagsNoDocking WindowFlags = 1 << 19
 
 	// WindowFlagsNoNav combines WindowFlagsNoNavInputs and WindowFlagsNoNavFocus.
 	WindowFlagsNoNav = WindowFlagsNoNavInputs | WindowFlagsNoNavFocus
@@ -468,4 +470,45 @@ func (viewport Viewport) WorkCenter() Vec2 {
 	C.iggViewportGetWorkCenter(viewport.handle(), valueArg)
 	valueFin()
 	return value
+}
+
+// DockNodeFlags for DockSpace().
+type DockNodeFlags int
+
+const (
+	// DockNodeFlagsNone default = 0.
+	DockNodeFlagsNone DockNodeFlags = 0
+	// DockNodeFlagsKeepAliveOnly don't display the dockspace node but keep it alive. Windows docked into this dockspace node won't be undocked.
+	DockNodeFlagsKeepAliveOnly DockNodeFlags = 1 << 0
+	// DockNodeFlagsNoDockingOverCentralNode disable docking over the Central Node, which will be always kept empty.
+	DockNodeFlagsNoDockingOverCentralNode DockNodeFlags = 1 << 2
+	// DockNodeFlagsPassthruCentralNode enable passthru dockspace: 1) DockSpace() will render a ImGuiCol_WindowBg background covering everything excepted the Central Node when empty. Meaning the host window should probably use SetNextWindowBgAlpha(0.0f) prior to Begin() when using this. 2) When Central Node is empty: let inputs pass-through + won't display a DockingEmptyBg background.
+	DockNodeFlagsPassthruCentralNode DockNodeFlags = 1 << 3
+	// DockNodeFlagsNoDockingSplit disable other windows/nodes from splitting this node.
+	DockNodeFlagsNoDockingSplit DockNodeFlags = 1 << 4
+	// DockNodeFlagsNoResize disable resizing node using the splitter/separators. Useful with programmatically setup dockspaces.
+	DockNodeFlagsNoResize DockNodeFlags = 1 << 5
+	// DockNodeFlagsAutoHideTabBar tab bar will automatically hide when there is a single window in the dock node.
+	DockNodeFlagsAutoHideTabBar DockNodeFlags = 1 << 6
+	// DockNodeFlagsNoUndocking disable undocking this node.
+	DockNodeFlagsNoUndocking DockNodeFlags = 1 << 7
+)
+
+// DockSpace creates a dockspace node within an existing window. All child windows must be created after calling DockSpace().
+// Returns the ID of the dock node.
+func DockSpace(id uint32, size Vec2, flags DockNodeFlags) uint32 {
+	sizeArg, _ := size.wrapped()
+	return uint32(C.iggDockSpace(C.uint(id), sizeArg, C.int(flags)))
+}
+
+// DockSpaceOverViewport creates a dockspace over the entire viewport or the specified viewport.
+// This is useful for creating full-screen docking layouts.
+func DockSpaceOverViewport(id uint32, viewport Viewport, flags DockNodeFlags) uint32 {
+	return uint32(C.iggDockSpaceOverViewport(C.uint(id), C.IggViewport(viewport), C.int(flags)))
+}
+
+// SetNextWindowDockID sets the dock node that the next window will dock into.
+// Use this before calling Begin() to dock a window to a specific dock node.
+func SetNextWindowDockID(dockID uint32, cond Condition) {
+	C.iggSetNextWindowDockID(C.uint(dockID), C.int(cond))
 }

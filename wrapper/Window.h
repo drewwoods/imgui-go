@@ -53,6 +53,10 @@ extern void iggViewportGetWorkSize(IggViewport handle, IggVec2 *out);
 extern void iggViewportGetCenter(IggViewport handle, IggVec2 *out);
 extern void iggViewportGetWorkCenter(IggViewport handle, IggVec2 *out);
 
+extern unsigned int iggDockSpace(unsigned int dockspace_id, IggVec2 const *size, int flags);
+extern unsigned int iggDockSpaceOverViewport(unsigned int dockspace_id, IggViewport viewport, int flags);
+extern void iggSetNextWindowDockID(unsigned int dock_id, int cond);
+
 #ifdef __cplusplus
 }
 #endif

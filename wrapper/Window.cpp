@@ -227,3 +227,20 @@ void iggViewportGetWorkCenter(IggViewport handle, IggVec2 *out)
    ImGuiViewport *viewport = reinterpret_cast<ImGuiViewport *>(handle);
    exportValue(*out, viewport->GetWorkCenter());
 }
+
+unsigned int iggDockSpace(unsigned int dockspace_id, IggVec2 const *size, int flags)
+{
+   Vec2Wrapper sizeArg(size);
+   return ImGui::DockSpace(dockspace_id, *sizeArg, flags);
+}
+
+unsigned int iggDockSpaceOverViewport(unsigned int dockspace_id, IggViewport viewport, int flags)
+{
+   ImGuiViewport *viewportPtr = reinterpret_cast<ImGuiViewport *>(viewport);
+   return ImGui::DockSpaceOverViewport(dockspace_id, viewportPtr, flags);
+}
+
+void iggSetNextWindowDockID(unsigned int dock_id, int cond)
+{
+   ImGui::SetNextWindowDockID(dock_id, cond);
+}
